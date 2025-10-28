@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ObsiVault - Vault Gratuito para Obsidian</title>
     <meta name="description" content="Receba nosso vault gratuito para Obsidian e entre no grupo de produtividade">
+
+    <!-- Pré-conexão para melhor performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -101,6 +110,9 @@
 
         .gallery-item img {
             transition: transform 0.4s ease;
+            width: 100%;
+            height: 13rem;
+            object-fit: cover;
         }
 
         .gallery-item:hover img {
@@ -123,6 +135,7 @@
         .input-field:focus {
             border-color: rgba(126, 87, 194, 0.6);
             box-shadow: 0 0 0 3px rgba(126, 87, 194, 0.1);
+            outline: none;
         }
 
         .nav-link {
@@ -150,18 +163,144 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .phone-input {
             direction: ltr;
             text-align: left;
         }
-        
+
         .personal-message {
             background: linear-gradient(135deg, rgba(126, 87, 194, 0.1) 0%, rgba(126, 87, 194, 0.05) 100%);
             border-left: 4px solid var(--primary);
+        }
+
+        .youtube-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .youtube-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Modal para galeria expandida */
+        .gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .gallery-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-light);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Melhorias de acessibilidade */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus visível para acessibilidade */
+        .btn-primary:focus,
+        .btn-whatsapp:focus,
+        .input-field:focus {
+            outline: 2px solid var(--primary-light);
+            outline-offset: 2px;
+        }
+
+        /* Melhor contraste para texto */
+        .text-gray-300 {
+            color: rgba(209, 213, 219, 0.9);
+        }
+
+        .text-gray-400 {
+            color: rgba(156, 163, 175, 0.9);
+        }
+
+        .text-gray-500 {
+            color: rgba(107, 114, 128, 0.9);
+        }
+
+        /* Otimizações para mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .glass-card {
+                padding: 1.5rem;
+            }
+
+            .gallery-item img {
+                height: 10rem;
+            }
+        }
+
+        /* Loading otimizado */
+        #btn-loading {
+            width: 1.25rem;
+            height: 1.25rem;
         }
     </style>
 </head>
@@ -170,58 +309,57 @@
     <!-- Navbar -->
     <header class="glass-card sticky top-0 z-50 w-full py-4 px-6 md:px-12 border-b border-purple-900/20">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-purple-700">
-                    <i data-feather="hexagon" class="text-white text-lg"></i>
-                </div>
-                <span class="text-2xl font-bold gradient-text">ObsiVault</span>
-            </div>
-            <nav class="hidden md:block">
+            <nav class="hidden md:block" aria-label="Navegação principal">
                 <ul class="flex space-x-10">
-                    <li><a href="#gallery" class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide">Galeria</a></li>
-                    <li><a href="#features" class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide">Features</a></li>
-                    <li><a href="#download" class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide">Receber</a></li>
+                    <li><a href="#gallery"
+                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide focus:outline-none focus:text-white">Galeria</a>
+                    </li>
+                    <li><a href="#features"
+                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide focus:outline-none focus:text-white">Features</a>
+                    </li>
+                    <li><a href="#download"
+                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide focus:outline-none focus:text-white">Receber</a>
+                    </li>
                 </ul>
             </nav>
-            <button class="md:hidden p-2 rounded-lg hover:bg-purple-900/20 transition" id="mobile-menu-button">
+            <button
+                class="md:hidden p-2 rounded-lg hover:bg-purple-900/20 transition focus:outline-none focus:ring-2 focus:ring-purple-500"
+                id="mobile-menu-button" aria-label="Abrir menu mobile" aria-expanded="false"
+                aria-controls="mobile-menu">
                 <i data-feather="menu" class="text-white"></i>
             </button>
         </div>
     </header>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden glass-card fixed inset-0 z-40 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center">
-        <button id="close-menu" class="absolute top-8 right-8 p-3 rounded-full hover:bg-purple-900/20 transition">
+    <div id="mobile-menu"
+        class="hidden glass-card fixed inset-0 z-40 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center"
+        aria-hidden="true">
+        <button id="close-menu"
+            class="absolute top-8 right-8 p-3 rounded-full hover:bg-purple-900/20 transition focus:outline-none focus:ring-2 focus:ring-purple-500"
+            aria-label="Fechar menu mobile">
             <i data-feather="x" class="text-white text-2xl"></i>
         </button>
-        <ul class="space-y-10 text-center">
-            <li><a href="#gallery" class="text-2xl gradient-text font-medium hover:scale-110 transition">Galeria</a></li>
-            <li><a href="#features" class="text-2xl gradient-text font-medium hover:scale-110 transition">Features</a></li>
-            <li><a href="#download" class="text-2xl gradient-text font-medium hover:scale-110 transition">Receber</a></li>
+        <ul class="space-y-10 text-center" role="menu">
+            <li role="none"><a href="#gallery"
+                    class="text-2xl gradient-text font-medium hover:scale-110 transition focus:outline-none focus:scale-110"
+                    role="menuitem">Galeria</a>
+            </li>
+            <li role="none"><a href="#features"
+                    class="text-2xl gradient-text font-medium hover:scale-110 transition focus:outline-none focus:scale-110"
+                    role="menuitem">Features</a>
+            </li>
+            <li role="none"><a href="#download"
+                    class="text-2xl gradient-text font-medium hover:scale-110 transition focus:outline-none focus:scale-110"
+                    role="menuitem">Receber</a>
+            </li>
         </ul>
     </div>
 
-    <!-- Download Section - Layout Horizontal -->
+    <!-- Download Section -->
     <section id="download" class="py-16 px-6 md:px-12 bg-gradient-to-br from-darker via-dark to-darker">
         <div class="container mx-auto max-w-6xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Headline Section - Imagem Grande -->
-                <div class="fade-in">
-                    <div class="rounded-2xl overflow-hidden glass-card mb-6">
-                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                             alt="ObsiVault Dashboard" 
-                             class="w-full h-64 md:h-80 object-cover">
-                    </div>
-                    <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-6">
-                        Vamos trocar uma ideia sobre produtividade?
-                    </h2>
-                    <div class="personal-message p-6 rounded-2xl mb-6">
-                        <p class="text-gray-200 leading-relaxed">
-                            "Oi! Se você chegou aqui pelo YouTube, muito obrigado pela atenção. Criei esse vault pensando em como organizar melhor minhas ideias e projetos, e quero compartilhar com você."
-                        </p>
-                    </div>
-                </div>
-
                 <!-- Form Section -->
                 <div class="glass-card p-8 rounded-3xl fade-in">
                     <div class="text-center mb-8">
@@ -231,51 +369,63 @@
                         </p>
                     </div>
 
-                    <form id="download-form" class="space-y-6">
-                        <div id="form-success" class="hidden bg-gradient-to-r from-green-900/40 to-green-800/20 text-green-300 p-4 rounded-xl text-center border border-green-800/30">
-                            <i data-feather="check-circle" class="inline-block mr-3 text-xl"></i>
-                            <span id="success-message">Oba! Já te enviei o link no WhatsApp e vou te adicionar no grupo!</span>
+                    <form id="download-form" class="space-y-6" novalidate>
+                        <div id="form-success"
+                            class="hidden bg-gradient-to-r from-green-900/40 to-green-800/20 text-green-300 p-4 rounded-xl text-center border border-green-800/30"
+                            role="alert" aria-live="polite">
+                            <i data-feather="check-circle" class="inline-block mr-3 text-xl" aria-hidden="true"></i>
+                            <span id="success-message">Oba! Já te enviei o link no WhatsApp e vou te adicionar no
+                                grupo!</span>
                         </div>
 
-                        <div id="form-error" class="hidden bg-gradient-to-r from-red-900/40 to-red-800/20 text-red-300 p-4 rounded-xl text-center border border-red-800/30">
-                            <i data-feather="alert-circle" class="inline-block mr-3 text-xl"></i>
+                        <div id="form-error"
+                            class="hidden bg-gradient-to-r from-red-900/40 to-red-800/20 text-red-300 p-4 rounded-xl text-center border border-red-800/30"
+                            role="alert" aria-live="assertive">
+                            <i data-feather="alert-circle" class="inline-block mr-3 text-xl" aria-hidden="true"></i>
                             <span id="error-message">Algo deu errado. Pode tentar de novo?</span>
                         </div>
 
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Como quer ser chamado?</label>
-                            <input type="text" id="name" name="name" 
-                                class="w-full input-field rounded-xl px-4 py-3 text-white focus:outline-none placeholder-gray-500"
-                                placeholder="Seu nome ou apelido">
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Como quer ser
+                                chamado?</label>
+                            <input type="text" id="name" name="name"
+                                class="w-full input-field rounded-xl px-4 py-3 text-white placeholder-gray-500"
+                                placeholder="Seu nome ou apelido" aria-describedby="name-help">
                         </div>
-                        
+
                         <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Seu WhatsApp*</label>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Seu
+                                WhatsApp*</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-gray-400">+55</span>
                                 </div>
-                                <input type="tel" id="phone" name="phone" required 
-                                    class="w-full input-field rounded-xl pl-12 pr-4 py-3 text-white focus:outline-none placeholder-gray-500 phone-input"
-                                    placeholder="(15) 99830-4344"
-                                    maxlength="15">
+                                <input type="tel" id="phone" name="phone" required
+                                    class="w-full input-field rounded-xl pl-12 pr-4 py-3 text-white placeholder-gray-500 phone-input"
+                                    placeholder="(15) 99830-4344" maxlength="15" aria-required="true"
+                                    aria-describedby="phone-help">
                             </div>
-                            <p class="text-xs text-gray-400 mt-1">Vou usar só pra te enviar o vault e te adicionar no grupo</p>
+                            <p id="phone-help" class="text-xs text-gray-400 mt-1">Vou usar só pra te adicionar no grupo
+                            </p>
                         </div>
 
                         <div class="flex items-start p-3 rounded-xl bg-purple-900/10 border border-purple-800/20">
-                            <input type="checkbox" id="privacy" name="privacy" required 
-                                class="w-4 h-4 rounded bg-gray-800 border-purple-500 text-purple-500 focus:ring-purple-500 mr-3 mt-1">
+                            <input type="checkbox" id="privacy" name="privacy" required
+                                class="w-4 h-4 rounded bg-gray-800 border-purple-500 text-purple-500 focus:ring-purple-500 mr-3 mt-1"
+                                aria-required="true">
                             <label for="privacy" class="text-xs text-gray-300 leading-relaxed">
                                 Concordo em receber o vault e participar do grupo no WhatsApp
                             </label>
                         </div>
 
-                        <button type="submit" id="submit-btn" class="btn-primary text-white font-semibold py-4 px-6 rounded-xl w-full flex items-center justify-center relative">
-                            <i data-feather="message-circle" class="mr-2"></i> 
+                        <button type="submit" id="submit-btn"
+                            class="btn-primary text-white font-semibold py-4 px-6 rounded-xl w-full flex items-center justify-center relative focus:outline-none"
+                            aria-live="polite">
+                            <i data-feather="message-circle" class="mr-2" aria-hidden="true"></i>
                             <span id="btn-text">Me envia o vault e me adiciona no grupo</span>
-                            <div id="btn-loading" class="hidden ml-2">
-                                <div class="loading-spinner rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                            <div id="btn-loading" class="hidden ml-2" aria-hidden="true">
+                                <div class="loading-spinner rounded-full border-2 border-white border-t-transparent">
+                                </div>
                             </div>
                         </button>
 
@@ -284,100 +434,92 @@
                         </p>
                     </form>
                 </div>
+
+                <!-- Headline Section -->
+                <div class="fade-in">
+                    <div class="personal-message p-6 rounded-2xl mb-6">
+                        <p class="text-gray-200 leading-relaxed">
+                            "Oi! Se você chegou aqui pelo YouTube, muito obrigado pela atenção. Criei esse vault
+                            pensando em como organizar melhor minhas ideias e projetos, e quero compartilhar com você."
+                        </p>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden glass-card mb-6">
+                        <div class="youtube-container">
+                            <iframe src="https://www.youtube.com/embed/sN8n62w8fdo" title="Demonstração do ObsiVault"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <div class="section-divider my-4"></div>
 
-    <!-- Gallery Section -->
+    <!-- Galeria -->
     <section id="gallery" class="py-24 px-6 md:px-12 bg-gradient-to-b from-darker to-dark">
         <div class="container mx-auto">
             <div class="text-center mb-20 fade-in">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    <span class="gradient-text">Galeria</span> do Vault
+                <h2 class="text-4xl md:text-5xl font-normal mb-6">
+                    <span class="gradient-text">Galeria</span>
                 </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Veja como o ObsiVault vai transformar sua experiência com o Obsidian
-                </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Gallery Items -->
-                <div class="gallery-item rounded-2xl overflow-hidden glass-card group">
+                <div class="gallery-item rounded-2xl overflow-hidden glass-card group" data-image="assets/pkm-+.png"
+                    role="button" tabindex="0" aria-label="Expandir imagem do Dashboard Principal">
                     <div class="overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Dashboard Principal" 
-                             class="w-full h-52 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-lg mb-3 group-hover:text-purple-300 transition">Dashboard Principal</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Visão geral completa da sua produtividade com métricas e insights</p>
+                        <img src="assets/pkm-+.png" alt="Dashboard Principal" loading="lazy">
                     </div>
                 </div>
 
-                <div class="gallery-item rounded-2xl overflow-hidden glass-card group">
+                <div class="gallery-item rounded-2xl overflow-hidden glass-card group" data-image="assets/home-main.png"
+                    role="button" tabindex="0" aria-label="Expandir imagem do Graph View">
                     <div class="overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Graph View" 
-                             class="w-full h-52 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-lg mb-3 group-hover:text-purple-300 transition">Graph View Personalizado</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Visualize conexões entre suas ideias com cores e agrupamentos</p>
+                        <img src="assets/home-main.png" alt="Graph View" loading="lazy">
                     </div>
                 </div>
 
-                <div class="gallery-item rounded-2xl overflow-hidden glass-card group">
+                <div class="gallery-item rounded-2xl overflow-hidden glass-card group" data-image="assets/home-1.png"
+                    role="button" tabindex="0" aria-label="Expandir imagem do Daily Notes">
                     <div class="overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Daily Notes" 
-                             class="w-full h-52 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-lg mb-3 group-hover:text-purple-300 transition">Daily Notes</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Template diário organizado para máxima produtividade</p>
+                        <img src="assets/home-1.png" alt="Daily Notes" loading="lazy">
                     </div>
                 </div>
 
-                <div class="gallery-item rounded-2xl overflow-hidden glass-card group">
+                <div class="gallery-item rounded-2xl overflow-hidden glass-card group" data-image="assets/pkm++.png"
+                    role="button" tabindex="0" aria-label="Expandir imagem do Project Management">
                     <div class="overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Project Management" 
-                             class="w-full h-52 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-lg mb-3 group-hover:text-purple-300 transition">Gestão de Projetos</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Sistema completo PARA implementado e otimizado</p>
+                        <img src="assets/pkm++.png" alt="Project Management" loading="lazy">
                     </div>
                 </div>
 
-                <div class="gallery-item rounded-2xl overflow-hidden glass-card group">
+                <div class="gallery-item rounded-2xl overflow-hidden glass-card group" data-image="assets/pkm++.png"
+                    role="button" tabindex="0" aria-label="Expandir imagem do Templates Library">
                     <div class="overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Templates Library" 
-                             class="w-full h-52 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-lg mb-3 group-hover:text-purple-300 transition">Biblioteca de Templates</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Coleção completa de templates para todos os usos</p>
+                        <img src="assets/pkm++.png" alt="Templates Library" loading="lazy">
                     </div>
                 </div>
 
-                <div class="gallery-item rounded-2xl overflow-hidden glass-card group">
+                <div class="gallery-item rounded-2xl overflow-hidden glass-card group" data-image="assets/tracker.png"
+                    role="button" tabindex="0" aria-label="Expandir imagem do Mobile View">
                     <div class="overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                             alt="Mobile View" 
-                             class="w-full h-52 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-lg mb-3 group-hover:text-purple-300 transition">Versão Mobile</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed">Otimizado para dispositivos móveis com sync perfeito</p>
+                        <img src="assets/tracker.png" alt="Mobile View" loading="lazy">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal para galeria expandida -->
+    <div id="gallery-modal" class="gallery-modal" role="dialog" aria-modal="true" aria-label="Imagem expandida" hidden>
+        <span class="close-modal" tabindex="0" role="button" aria-label="Fechar imagem">&times;</span>
+        <img id="modal-image" src="" alt="">
+    </div>
 
     <div class="section-divider my-4"></div>
 
@@ -386,28 +528,36 @@
         <div class="container mx-auto">
             <div class="text-center mb-20 fade-in">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    <span class="gradient-text">Features</span> Completas
+                    <span class="gradient-text">Features</span>
                 </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Descubra todas as funcionalidades que tornam o ObsiVault a solução definitiva para produtividade
-                </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature Cards -->
                 <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="search" class="text-purple-400 text-2xl"></i>
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="folder" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Pesquisa Avançada</h3>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Organização ACE</h3>
                     <p class="text-gray-300 leading-relaxed">
-                        Sistema de busca inteligente com filtros por tags, datas e conteúdo.
+                        Sistema de organização de pastas universal e funcional
                     </p>
                 </div>
-
                 <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="git-branch" class="text-purple-400 text-2xl"></i>
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="box" class="text-purple-400 text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Sistema PARA</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Implementação completa do método Projects-Areas-Resources-Archives.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl card-hover group">
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="git-branch" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Graph View</h3>
                     <p class="text-gray-300 leading-relaxed">
@@ -416,8 +566,9 @@
                 </div>
 
                 <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="clock" class="text-purple-400 text-2xl"></i>
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="clock" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Daily Notes</h3>
                     <p class="text-gray-300 leading-relaxed">
@@ -425,19 +576,12 @@
                     </p>
                 </div>
 
-                <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="box" class="text-purple-400 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Sistema PARA</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Implementação completa do método Projects-Areas-Resources-Archives.
-                    </p>
-                </div>
+
 
                 <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="bar-chart-2" class="text-purple-400 text-2xl"></i>
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="bar-chart-2" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Dashboards</h3>
                     <p class="text-gray-300 leading-relaxed">
@@ -446,8 +590,9 @@
                 </div>
 
                 <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="code" class="text-purple-400 text-2xl"></i>
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="code" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Snippets CSS/JS</h3>
                     <p class="text-gray-300 leading-relaxed">
@@ -455,25 +600,35 @@
                     </p>
                 </div>
             </div>
+
+            <!-- Botão para subir ao formulário -->
+            <div class="text-center mt-16 fade-in">
+                <a href="#download"
+                    class="btn-primary text-white font-semibold py-4 px-8 rounded-xl inline-flex items-center focus:outline-none">
+                    <i data-feather="arrow-up" class="mr-2" aria-hidden="true"></i>
+                    Receber o Vault Gratuito
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Success Section (hidden by default) -->
+    <!-- Success Section -->
     <section id="success-section" class="hidden py-24 px-6 md:px-12 bg-gradient-to-b from-dark to-darker">
         <div class="container mx-auto max-w-4xl">
             <div class="glass-card p-12 rounded-3xl text-center">
                 <div class="flex justify-center mb-8">
-                    <div class="w-24 h-24 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
-                        <i data-feather="check" class="text-white text-3xl"></i>
+                    <div
+                        class="w-24 h-24 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                        <i data-feather="check" class="text-white text-3xl" aria-hidden="true"></i>
                     </div>
                 </div>
-                
+
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">
                     Obrigado por baixar o <span class="gradient-text">ObsiVault</span>!
                 </h2>
-                
+
                 <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-                    Seu download já começou e enviamos o link para seu WhatsApp. 
+                    Seu download já começou e enviamos o link para seu WhatsApp.
                     Agora é hora de fazer parte da nossa comunidade!
                 </p>
 
@@ -481,7 +636,7 @@
                     <div class="glass-card p-6 rounded-2xl text-left">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-2xl bg-green-900/20 flex items-center justify-center mr-4">
-                                <i data-feather="users" class="text-green-400"></i>
+                                <i data-feather="users" class="text-green-400" aria-hidden="true"></i>
                             </div>
                             <h3 class="text-lg font-bold">Comunidade Ativa</h3>
                         </div>
@@ -489,11 +644,11 @@
                             Mais de 500 membros trocando ideias e soluções sobre Obsidian.
                         </p>
                     </div>
-                    
+
                     <div class="glass-card p-6 rounded-2xl text-left">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 rounded-2xl bg-green-900/20 flex items-center justify-center mr-4">
-                                <i data-feather="zap" class="text-green-400"></i>
+                                <i data-feather="zap" class="text-green-400" aria-hidden="true"></i>
                             </div>
                             <h3 class="text-lg font-bold">Suporte Rápido</h3>
                         </div>
@@ -503,12 +658,13 @@
                     </div>
                 </div>
 
-                <a href="https://wa.me/5511999999999?text=Olá!%20Acabei%20de%20baixar%20o%20ObsiVault%20e%20gostaria%20de%20participar%20do%20grupo." 
-                   target="_blank" 
-                   class="btn-whatsapp text-white font-semibold py-5 px-10 rounded-xl inline-flex items-center justify-center text-lg max-w-md mx-auto mb-6">
-                    <i data-feather="message-circle" class="mr-3"></i> Entrar no Grupo do WhatsApp
+                <a href="https://wa.me/5511999999999?text=Olá!%20Acabei%20de%20baixar%20o%20ObsiVault%20e%20gostaria%20de%20participar%20do%20grupo."
+                    target="_blank"
+                    class="btn-whatsapp text-white font-semibold py-5 px-10 rounded-xl inline-flex items-center justify-center text-lg max-w-md mx-auto mb-6 focus:outline-none"
+                    rel="noopener noreferrer">
+                    <i data-feather="message-circle" class="mr-3" aria-hidden="true"></i> Entrar no Grupo do WhatsApp
                 </a>
-                
+
                 <p class="text-sm text-gray-500 max-w-md mx-auto">
                     Ao entrar no grupo, você concorda com nossas regras de convivência.
                 </p>
@@ -519,52 +675,45 @@
     <!-- Footer -->
     <footer class="bg-darker py-16 px-6 md:px-12 border-t border-purple-900/20">
         <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-8 md:mb-0 text-center md:text-left">
-                    <div class="flex items-center space-x-3 justify-center md:justify-start mb-4">
-                        <div class="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-purple-700">
-                            <i data-feather="hexagon" class="text-white"></i>
-                        </div>
-                        <span class="text-2xl font-bold gradient-text">ObsiVault</span>
-                    </div>
-                    <p class="text-gray-400 text-sm">
-                        Elevando sua produtividade com Obsidian desde 2023.
-                    </p>
+            <div class="flex flex-col items-center space-y-8">
+                <div class="flex space-x-4">
+                    <a href="#"
+                        class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        aria-label="GitHub">
+                        <i data-feather="github"></i>
+                    </a>
+                    <a href="#"
+                        class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        aria-label="Email">
+                        <i data-feather="mail"></i>
+                    </a>
                 </div>
 
-                <div class="flex flex-col items-center md:items-end space-y-6">
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20">
-                            <i data-feather="github"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20">
-                            <i data-feather="twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20">
-                            <i data-feather="mail"></i>
-                        </a>
-                    </div>
-
-                    <div class="flex flex-wrap justify-center md:justify-end gap-6 text-sm">
-                        <a href="#" class="text-gray-400 hover:text-purple-300 transition">Política de Privacidade</a>
-                        <a href="#" class="text-gray-400 hover:text-purple-300 transition">Termos de Uso</a>
-                        <a href="#" class="text-gray-400 hover:text-purple-300 transition">Contato</a>
-                    </div>
-
-                    <p class="text-gray-500 text-sm">
-                        &copy; 2023 ObsiVault. Todos os direitos reservados.
-                    </p>
-                </div>
+                <p class="text-gray-500 text-sm">
+                    &copy; 2023 ObsiVault. Todos os direitos reservados.
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
         // Inicializar feather icons
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
+
+            // Elementos DOM reutilizáveis
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu');
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const modal = document.getElementById('gallery-modal');
+            const modalImage = document.getElementById('modal-image');
+            const closeModal = document.querySelector('.close-modal');
+            const phoneInput = document.getElementById('phone');
+            const downloadForm = document.getElementById('download-form');
 
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -572,23 +721,31 @@
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
-                        document.getElementById('mobile-menu').classList.add('hidden');
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
                         target.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             });
 
             // Mobile menu functionality
-            document.getElementById('mobile-menu-button').addEventListener('click', function () {
-                document.getElementById('mobile-menu').classList.remove('hidden');
-            });
+            function toggleMobileMenu() {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'true');
+                    mobileMenu.setAttribute('aria-hidden', 'false');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.setAttribute('aria-hidden', 'true');
+                }
+            }
 
-            document.getElementById('close-menu').addEventListener('click', function () {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            closeMenuButton.addEventListener('click', toggleMobileMenu);
 
-            // Fade-in animation on scroll
-            const fadeElements = document.querySelectorAll('.fade-in');
+            // Fade-in animation on scroll com Intersection Observer
             const fadeInOnScroll = () => {
                 fadeElements.forEach(element => {
                     const elementTop = element.getBoundingClientRect().top;
@@ -598,12 +755,28 @@
                     }
                 });
             };
-            
-            window.addEventListener('load', fadeInOnScroll);
-            window.addEventListener('scroll', fadeInOnScroll);
+
+            // Usar Intersection Observer para melhor performance
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                fadeElements.forEach(element => {
+                    observer.observe(element);
+                });
+            } else {
+                // Fallback para browsers antigos
+                window.addEventListener('load', fadeInOnScroll);
+                window.addEventListener('scroll', fadeInOnScroll);
+            }
 
             // Phone number formatting
-            document.getElementById('phone').addEventListener('input', function(e) {
+            phoneInput.addEventListener('input', function (e) {
                 let value = e.target.value.replace(/\D/g, '');
                 if (value.length > 11) {
                     value = value.substring(0, 11);
@@ -621,6 +794,46 @@
                 }
             });
 
+            // Galeria com modal para imagens expandidas
+            function openModal(imageSrc) {
+                modalImage.src = imageSrc;
+                modal.classList.add('active');
+                modal.removeAttribute('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeGalleryModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('hidden', 'true');
+                document.body.style.overflow = 'auto';
+                modalImage.src = '';
+            }
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const imageSrc = this.getAttribute('data-image');
+                    openModal(imageSrc);
+                });
+
+                // Suporte a teclado
+                item.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const imageSrc = this.getAttribute('data-image');
+                        openModal(imageSrc);
+                    }
+                });
+            });
+
+            closeModal.addEventListener('click', closeGalleryModal);
+
+            // Fechar modal com tecla ESC
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeGalleryModal();
+                }
+            });
+
             // Função para forçar download do arquivo ZIP
             function triggerDownload() {
                 try {
@@ -633,16 +846,15 @@
                     document.body.removeChild(link);
                 } catch (error) {
                     console.error('Erro no download:', error);
-                    // Fallback: abre em nova aba se o download direto falhar
                     window.open('assets/ObsiVault.zip', '_blank');
                 }
             }
 
             // Form submission
-            document.getElementById('download-form').addEventListener('submit', async function (e) {
+            downloadForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
 
-                const phone = document.getElementById('phone').value;
+                const phone = phoneInput.value;
                 const name = document.getElementById('name').value;
 
                 // Validar telefone
@@ -663,16 +875,16 @@
                 try {
                     // Simular envio do WhatsApp
                     await new Promise(resolve => setTimeout(resolve, 2000));
-                    
+
                     // Mostrar mensagem de sucesso
                     document.getElementById('success-message').textContent = 'Oba! Já te enviei o link no WhatsApp e vou te adicionar no grupo!';
                     document.getElementById('form-success').classList.remove('hidden');
-                    
+
                     // Forçar download do arquivo ZIP
                     setTimeout(() => {
                         triggerDownload();
                     }, 1000);
-                    
+
                     // Salvar localmente
                     const subscriberData = {
                         phone: '55' + cleanedPhone,
@@ -680,7 +892,7 @@
                         timestamp: new Date().toISOString()
                     };
                     localStorage.setItem('obsivault_subscriber', JSON.stringify(subscriberData));
-                    
+
                     // Mostrar seção de sucesso após 3 segundos
                     setTimeout(() => {
                         document.getElementById('download').style.display = 'none';
@@ -701,7 +913,7 @@
                 const btn = document.getElementById('submit-btn');
                 const btnText = document.getElementById('btn-text');
                 const btnLoading = document.getElementById('btn-loading');
-                
+
                 if (isLoading) {
                     btn.disabled = true;
                     btnText.textContent = 'Te enviando...';
@@ -715,4 +927,5 @@
         });
     </script>
 </body>
+
 </html>
