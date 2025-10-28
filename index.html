@@ -183,7 +183,7 @@
 
         .personal-message {
             background: linear-gradient(135deg, rgba(126, 87, 194, 0.1) 0%, rgba(126, 87, 194, 0.05) 100%);
-            border-left: 4px solid var(--primary);
+            border-left: 2px solid var(--primary);
         }
 
         .youtube-container {
@@ -271,16 +271,16 @@
         /* Otimizações para mobile */
         @media (max-width: 768px) {
             .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
+                padding-left: 0.1rem;
+                padding-right: 0.1rem;
             }
 
             .glass-card {
-                padding: 1.5rem;
+                padding: 0.2rem;
             }
 
             .gallery-item img {
-                height: 10rem;
+                height: 12rem;
             }
         }
 
@@ -334,13 +334,14 @@
             justify-content: center;
             margin: 0 auto 1.5rem;
         }
+
         /* Profile pic pequena centralizada */
         .profile-pic {
             width: 80px;
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--primary);
+            border: 1px solid var(--primary);
             margin: 0 auto;
             display: block;
         }
@@ -354,7 +355,7 @@
             <nav class="hidden md:block" aria-label="Navegação principal">
                 <ul class="flex space-x-10">
                     <li><a href="#gallery"
-                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide focus:outline-none focus:text-white">Galeria</a>
+                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide focus:outline-none focus:text-white">Showcase</a>
                     </li>
                     <li><a href="#features"
                             class="nav-link text-gray-300 hover:text-white transition font-medium text-sm uppercase tracking-wide focus:outline-none focus:text-white">Features</a>
@@ -405,14 +406,20 @@
                 <!-- Headline Section -->
                 <div class="fade-in">
                     <!-- Profile Pic Pequena Centralizada -->
-                    <img src="assets/profire-pic.png"
-                        alt="Profile" class="profile-pic mb-4">
+                    <img src="assets/profire-pic.png" alt="Profile" class="profile-pic mb-4">
                     <div class="personal-message p-6 rounded-2xl mb-6">
-                        <p class="text-gray-200 leading-relaxed">
-                            "Eai ! Se você já chegou aqui pelo YouTube, muito obrigado pela atenção. Criei esse vault
-                            pensando em como organizar melhor minhas ideias e projetos, e quero compartilhar com você.
-                            Caso tenha encontrado essa página de outra forma, segue abaixo o vídeo onde apresento tudo
-                            sobre.. "
+                        <p class="text-gray-300 leading-relaxed">
+                            <strong>Eai 👋... </strong> Se veio do <a href="https://www.youtube.com/@nonaka96"
+                                target="_blank" rel="noopener noreferrer"
+                                class="text-blue-400 underline hover:text-blue-300">YouTube</a>,
+                            <strong>Muito Obrigado</strong> pela atenção.
+                        <p>Fiz esse vault para organizar minhas ideias e agora quero <strong>compartilhar com
+                                você</strong>.
+                            <br></br>
+                            Seu formulário para download está logo abaixo 👇 ou ao lado 👉.
+                            <br></br>
+
+                        <p> Se chegou aqui de outra maneira, veja o vídeo abaixo...</p>
                         </p>
                     </div>
 
@@ -424,6 +431,7 @@
                             </iframe>
                         </div>
                     </div>
+
                 </div>
 
 
@@ -446,6 +454,7 @@
                         </div>
 
                         <div>
+
                             <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Como quer ser
                                 chamado?</label>
                             <input type="text" id="name" name="name"
@@ -515,7 +524,7 @@
         <div class="container mx-auto">
             <div class="text-center mb-20 fade-in">
                 <h2 class="text-4xl md:text-5xl font-normal mb-6">
-                    <span class="gradient-text">Galeria</span>
+                    <span class="gradient-text">Showcase</span>
                 </h2>
             </div>
 
@@ -579,7 +588,7 @@
         <div class="container mx-auto">
             <div class="text-center mb-20 fade-in">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    <span class="gradient-text">Features</span>
+                    <span class="gradient-text">Features e Implementações.</span>
                 </h2>
             </div>
 
@@ -590,51 +599,51 @@
                         class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
                         <i data-feather="folder" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Organização ACE</h3>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Organização com método.
+                    </h3>
                     <p class="text-gray-300 leading-relaxed">
-                        Sistema de organização de pastas universal e funcional
+                        Implementação completa dos métodos
+                        <a href="https://forum.obsidian.md/t/the-ultimate-folder-system-a-quixotic-journey-to-ace/63483"
+                            target="_blank" rel="noopener noreferrer"
+                            class="text-blue-400 underline hover:text-blue-300">ACE</a>, <a
+                            href="https://notes.johnmavrick.com/ARC+Framework" target="_blank" rel="noopener noreferrer"
+                            class="text-blue-400 underline hover:text-blue-300">ARC</a> e <a
+                            href="https://fortelabs-com.translate.goog/blog/para/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc"
+                            target="_blank" rel="noopener noreferrer"
+                            class="text-blue-400 underline hover:text-blue-300">PARA</a> method.
                     </p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div
-                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="box" class="text-purple-400 text-2xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Sistema PARA</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Implementação completa do método Projects-Areas-Resources-Archives.
-                    </p>
-                </div>
-                <div class="glass-card p-8 rounded-2xl card-hover group">
-                    <div
-                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="git-branch" class="text-purple-400 text-2xl" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Graph View</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Visualização de conexões entre notas com cores e agrupamentos inteligentes.
-                    </p>
-                </div>
 
+
+                </div>
                 <div class="glass-card p-8 rounded-2xl card-hover group">
                     <div
                         class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="clock" class="text-purple-400 text-2xl" aria-hidden="true"></i>
+                        <i data-feather="book" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Daily Notes</h3>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Conteúdos de PKM</h3>
                     <p class="text-gray-300 leading-relaxed">
-                        Template diário com seções para prioridades, aprendizados e reflexões.
+                        Mais de 100 notas sobre gestão de conhecimento e dicas úteis.
                     </p>
                 </div>
-
                 <div class="glass-card p-8 rounded-2xl card-hover group">
                     <div
                         class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                        <i data-feather="bar-chart-2" class="text-purple-400 text-2xl" aria-hidden="true"></i>
+                        <i data-feather="calendar" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Dashboards</h3>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Journaling</h3>
                     <p class="text-gray-300 leading-relaxed">
-                        Painéis personalizáveis para métricas de produtividade e acompanhamento de metas.
+                        Sistema de Journaling completo com registros rápidos e de humor.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl card-hover group">
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="map" class="text-purple-400 text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Exemplos de Organização
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Mapas de conteúdo prontos para você se inspirar.
                     </p>
                 </div>
 
@@ -643,11 +652,29 @@
                         class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
                         <i data-feather="code" class="text-purple-400 text-2xl" aria-hidden="true"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Snippets CSS/JS</h3>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Templates prontos.</h3>
                     <p class="text-gray-300 leading-relaxed">
-                        Coleção de códigos para personalização avançada do seu vault.
+                        Dezenas de <a href="https://silentvoid13.github.io/Templater/" target="_blank"
+                            rel="noopener noreferrer" class="text-blue-400 underline hover:text-blue-300">Templates</a>
+                        pra uso e inspiração, Códigos
+                        <a href="https://blacksmithgu.github.io/obsidian-dataview" target="_blank"
+                            rel="noopener noreferrer" class="text-blue-400 underline hover:text-blue-300">Dataview</a> e
+                        snippets CSS.
                     </p>
                 </div>
+
+                <div class="glass-card p-8 rounded-2xl card-hover group">
+                    <div
+                        class="feature-icon w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-feather="bar-chart-2" class="text-purple-400 text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 group-hover:text-purple-300 transition">Dashboards de revisão</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Modelos elaborados de Snippets para notas semanais e mensais.
+                    </p>
+                </div>
+
+
             </div>
 
             <!-- Botão para subir ao formulário -->
@@ -702,18 +729,28 @@
     <footer class="bg-darker py-16 px-6 md:px-12 border-t border-purple-900/20">
         <div class="container mx-auto">
             <div class="flex flex-col items-center space-y-8">
+
                 <div class="flex space-x-4">
-                    <a href="https://github.com/NonakaVal/obsidian-starter-template"
+                    <a href="https://github.com/NonakaVal/obsidian-starter-template" target="_blank"
+                        rel="noopener noreferrer"
                         class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         aria-label="GitHub">
                         <i data-feather="github"></i>
                     </a>
-                    <a href="mailto:valdenirnonaka@gmail.com"
+
+                    <a href="mailto:valdenirnonaka@gmail.com" target="_blank" rel="noopener noreferrer"
                         class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         aria-label="Email">
                         <i data-feather="mail"></i>
                     </a>
+
+                    <a href="https://www.youtube.com/@nonaka96" target="_blank" rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-purple-300 transition p-3 rounded-xl hover:bg-purple-900/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        aria-label="YouTube">
+                        <i data-feather="youtube"></i>
+                    </a>
                 </div>
+
 
                 <p class="text-gray-500 text-sm">
                     &copy; 2025. Todos os direitos reservados.
