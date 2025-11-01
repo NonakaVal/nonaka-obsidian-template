@@ -19,7 +19,6 @@
         })();
     </script>
 
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -29,6 +28,11 @@
             --primary-dark: #4d2c91;
             --dark: #1e1e2d;
             --darker: #151521;
+            --light-bg: #f8fafc;
+            --light-card: #ffffff;
+            --light-text: #1e293b;
+            --light-text-secondary: #64748b;
+            --light-border: #e2e8f0;
         }
 
         body {
@@ -37,6 +41,12 @@
             color: white;
             scroll-behavior: smooth;
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
         }
 
         .glass-card {
@@ -45,6 +55,12 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(126, 87, 194, 0.3);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .light-mode .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(126, 87, 194, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary {
@@ -73,6 +89,12 @@
             box-shadow: 0 4px 16px rgba(126, 87, 194, 0.1);
         }
 
+        .light-mode .feature-icon {
+            background: linear-gradient(135deg, rgba(126, 87, 194, 0.1) 0%, rgba(126, 87, 194, 0.05) 100%);
+            border: 1px solid rgba(126, 87, 194, 0.3);
+            box-shadow: 0 4px 16px rgba(126, 87, 194, 0.05);
+        }
+
         .card-hover {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -83,11 +105,19 @@
             box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
         }
 
+        .light-mode .card-hover:hover {
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+        }
+
         .section-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent 0%, rgba(126, 87, 194, 0.3) 50%, transparent 100%);
             margin: 0 auto;
             width: 60%;
+        }
+
+        .light-mode .section-divider {
+            background: linear-gradient(90deg, transparent 0%, rgba(126, 87, 194, 0.2) 50%, transparent 100%);
         }
 
         .fade-in {
@@ -112,6 +142,10 @@
             box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.5);
         }
 
+        .light-mode .gallery-item:hover {
+            box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.2);
+        }
+
         .gallery-item img {
             transition: transform 0.4s ease;
             width: 100%;
@@ -134,6 +168,12 @@
             background: rgba(30, 30, 45, 0.6);
             border: 1px solid rgba(126, 87, 194, 0.2);
             transition: all 0.3s ease;
+        }
+
+        .light-mode .input-field {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(126, 87, 194, 0.2);
+            color: var(--light-text);
         }
 
         .input-field:focus {
@@ -183,6 +223,11 @@
 
         .personal-message {
             background: linear-gradient(135deg, rgba(126, 87, 194, 0.1) 0%, rgba(126, 87, 194, 0.05) 100%);
+            border-left: 2px solid var(--primary);
+        }
+
+        .light-mode .personal-message {
+            background: linear-gradient(135deg, rgba(126, 87, 194, 0.05) 0%, rgba(126, 87, 194, 0.02) 100%);
             border-left: 2px solid var(--primary);
         }
 
@@ -260,27 +305,44 @@
             color: rgba(209, 213, 219, 0.9);
         }
 
+        .light-mode .text-gray-300 {
+            color: var(--light-text-secondary);
+        }
+
         .text-gray-400 {
             color: rgba(156, 163, 175, 0.9);
+        }
+
+        .light-mode .text-gray-400 {
+            color: var(--light-text-secondary);
         }
 
         .text-gray-500 {
             color: rgba(107, 114, 128, 0.9);
         }
 
+        .light-mode .text-gray-500 {
+            color: var(--light-text-secondary);
+        }
+
         /* Otimizações para mobile */
         @media (max-width: 768px) {
             .container {
-                padding-left: 0.1rem;
-                padding-right: 0.1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
 
             .glass-card {
-                padding: 0.2rem;
+                padding: 1.5rem;
             }
 
             .gallery-item img {
                 height: 12rem;
+            }
+
+            .logo-compact {
+                max-width: 90%;
+                margin: 0 auto;
             }
         }
 
@@ -306,12 +368,22 @@
             text-align: center;
         }
 
+        .light-mode .feature-card {
+            background: rgba(37, 211, 102, 0.05);
+            border: 1px solid rgba(37, 211, 102, 0.2);
+        }
+
         .whatsapp-section {
             background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.05) 100%);
             border: 1px solid rgba(37, 211, 102, 0.3);
             border-radius: 1.5rem;
             padding: 2rem;
             margin: 2rem 0;
+        }
+
+        .light-mode .whatsapp-section {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.05) 0%, rgba(18, 140, 126, 0.02) 100%);
+            border: 1px solid rgba(37, 211, 102, 0.2);
         }
 
         /* Mensagem de agradecimento pós-submit */
@@ -322,6 +394,11 @@
             padding: 2rem;
             margin: 2rem 0;
             text-align: center;
+        }
+
+        .light-mode .thank-you-message {
+            background: linear-gradient(135deg, rgba(126, 87, 194, 0.08) 0%, rgba(126, 87, 194, 0.03) 100%);
+            border: 2px solid rgba(126, 87, 194, 0.3);
         }
 
         .thank-you-icon {
@@ -337,13 +414,197 @@
 
         /* Profile pic pequena centralizada */
         .profile-pic {
-            width: 80px;
-            height: 80px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid var(--primary);
             margin: 0 auto;
             display: block;
+        }
+
+        .logo-compact {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Melhorias de espaçamento e alinhamento */
+        .section-padding {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+        }
+
+        .container-max-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Ajustes de tipografia */
+        .heading-primary {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .heading-primary {
+                font-size: 2.5rem;
+            }
+        }
+
+        .heading-secondary {
+            font-size: 2.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .heading-secondary {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                text-align: center;
+                line-height: 1.3;
+                padding: 0 1rem;
+                max-width: 100%;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
+            }
+        }
+
+        .paragraph {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .paragraph {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+        }
+
+        /* Melhorias no formulário */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Melhorias na galeria */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* Melhorias nas features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Melhorias no layout geral */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Ajustes de alinhamento para melhor responsividade */
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .grid-responsive {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .grid-responsive {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .flex-responsive {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .text-responsive {
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+        }
+
+        .heading-responsive {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        /* Ajustes para o logo e texto na seção de logo */
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .logo-text {
+            margin-top: 1.5rem;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                padding: 0 1rem;
+            }
         }
     </style>
 </head>
@@ -351,20 +612,22 @@
 <body class="min-h-screen flex flex-col">
     <!-- Navbar -->
     <header class="glass-card sticky top-0 z-50 w-full py-4 px-6 md:px-12 border-b border-purple-900/20">
-        <div class="container mx-auto flex justify-between items-center">
-            <nav class="hidden md:block" aria-label="Navegação principal">
-                <ul class="flex space-x-10">
-                    <li><a href="#gallery"
-                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm  tracking-wide focus:outline-none focus:text-white">Showcase</a>
-                    </li>
-                    <li><a href="#features"
-                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm tracking-wide focus:outline-none focus:text-white">Features</a>
-                    </li>
-                    <li><a href="#download"
-                            class="nav-link text-gray-300 hover:text-white transition font-medium text-sm  tracking-wide focus:outline-none focus:text-white">Baixar</a>
-                    </li>
-                </ul>
-            </nav>
+        <div class="container-max-width flex justify-between items-center">
+            <div class="flex items-center">
+                <nav class="hidden md:block" aria-label="Navegação principal">
+                    <ul class="flex space-x-10">
+                        <li><a href="#gallery"
+                                class="nav-link text-gray-300 hover:text-white transition font-medium text-sm tracking-wide focus:outline-none focus:text-white">Showcase</a>
+                        </li>
+                        <li><a href="#features"
+                                class="nav-link text-gray-300 hover:text-white transition font-medium text-sm tracking-wide focus:outline-none focus:text-white">Features</a>
+                        </li>
+                        <li><a href="#download"
+                                class="nav-link text-gray-300 hover:text-white transition font-medium text-sm tracking-wide focus:outline-none focus:text-white">Baixar</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
             <button
                 class="md:hidden p-2 rounded-lg hover:bg-purple-900/20 transition focus:outline-none focus:ring-2 focus:ring-purple-500"
                 id="mobile-menu-button" aria-label="Abrir menu mobile" aria-expanded="false"
@@ -398,35 +661,58 @@
             </li>
         </ul>
     </div>
+    
+    <!-- Logo Section -->
+    <section class="logo-section bg-gradient-to-b from-dark via-darker to-dark">
+        <img src="assets/between-notes-dark.svg" alt="Logo Between Notes"
+            class="mx-auto w-72 md:w-96 drop-shadow-2xl transition-transform duration-500 hover:scale-105">
+        <div class="logo-text">
+            <p class="text-gray-300 text-lg md:text-xl text-responsive">
+                Conecte ideias, aprenda de forma intencional e transforme suas anotações em conhecimento vivo ✨
+            </p>
+        </div>
+    </section>
 
     <!-- Download Section -->
-    <section id="download" class="py-16 px-6 md:px-12 bg-gradient-to-br from-darker via-dark to-darker">
-        <div class="container mx-auto max-w-6xl">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Headline Section -->
-                <div class="fade-in">
-                    <!-- Profile Pic Pequena Centralizada -->
-                    <img src="assets/profire-pic.png" alt="Profile" class="profile-pic mb-4">
-                    <div class="personal-message p-6 rounded-2xl mb-6">
-                        <p class="text-gray-300 leading-relaxed">
-                            <strong>Eai 👋... </strong> Se veio do <a href="https://www.youtube.com/@nonaka96"
-                                target="_blank" rel="noopener noreferrer"
-                                class="text-blue-400 underline hover:text-blue-300">YouTube</a>,
-                            <strong>Muito Obrigado</strong> pela atenção.
-                        <p></p>
-                        Fiz esse vault para organizar minhas ideias e agora quero <strong>compartilhar com
-                            você</strong>.
-                        <br></br>
-                        <strong> Seu formulário para download está logo abaixo 👇 ou ao lado 👉.</strong>
-                        <p></br>
+    <section id="download" class="section-padding px-6 md:px-12 bg-gradient-to-br from-darker via-dark to-darker">
+        <div class="container-max-width">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-                        <p> Se chegou aqui de outra maneira, veja o vídeo abaixo...</p>
+                <!-- Left Section (Mensagem + Vídeo) -->
+                <div class="fade-in">
+
+                    <!-- Mensagem pessoal -->
+                    <div
+                        class="personal-message p-6 rounded-2xl mb-8 bg-gradient-to-br from-purple-900/20 to-dark border border-purple-800/30 shadow-lg">
+                        <img src="assets/profire-pic.png" alt="Profile"
+                            class="profile-pic mb-4 w-20 h-20 rounded-full mx-auto border-2 border-purple-500 shadow-md">
+
+                        <p class="text-gray-300 leading-relaxed text-left">
+                            <strong>Eai 👋...</strong> Se veio do
+                            <a href="https://www.youtube.com/@nonaka96" target="_blank" rel="noopener noreferrer"
+                                class="text-blue-400 underline hover:text-blue-300">YouTube</a>,
+                            <strong>muito obrigado</strong> pela atenção!
+                        </p>
+
+                        <p class="text-gray-300 mt-4 text-left">
+                            Fiz esse vault para organizar minhas ideias e agora quero
+                            <strong>compartilhar com você</strong>.
+                        </p>
+
+                        <p class="text-gray-300 mt-4 text-center font-semibold">
+                            Seu formulário para download está logo abaixo 👇 ou ao lado 👉
+                        </p>
+
+                        <p class="text-gray-400 mt-6 text-left text-sm">
+                            Se chegou aqui de outra maneira, veja o vídeo abaixo:
                         </p>
                     </div>
 
-                    <div class="rounded-2xl overflow-hidden glass-card mb-6">
-                        <div class="youtube-container">
-                            <iframe src="" title="Demonstração do ObsiVault"
+                    <!-- Vídeo YouTube responsivo -->
+                    <div class="rounded-2xl overflow-hidden glass-card shadow-lg">
+                        <div class="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-2xl">
+                            <iframe src="https://www.youtube.com/embed/8ZcmTl_1ER8" title="Demonstração do ObsiVault"
+                                class="absolute top-0 left-0 w-full h-full rounded-2xl"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen loading="lazy">
                             </iframe>
@@ -435,13 +721,12 @@
 
                 </div>
 
-
-
-
-                <!-- Form Section -->
-                <div class="glass-card p-8 rounded-3xl fade-in">
-
+                <!-- Right Section (Formulário) -->
+                <div
+                    class="glass-card p-8 rounded-3xl fade-in border border-purple-800/30 bg-gradient-to-br from-purple-900/10 to-dark">
                     <form id="download-form" class="space-y-6" novalidate>
+
+                        <!-- Mensagem de sucesso -->
                         <div id="form-success"
                             class="hidden bg-gradient-to-r from-green-900/40 to-green-800/20 text-green-300 p-4 rounded-xl text-center border border-green-800/30"
                             role="alert" aria-live="polite">
@@ -449,6 +734,7 @@
                             <span id="success-message">Seu download deve começar imediatamente</span>
                         </div>
 
+                        <!-- Mensagem de erro -->
                         <div id="form-error"
                             class="hidden bg-gradient-to-r from-red-900/40 to-red-800/20 text-red-300 p-4 rounded-xl text-center border border-red-800/30"
                             role="alert" aria-live="assertive">
@@ -456,13 +742,13 @@
                             <span id="error-message">Algo deu errado. Pode tentar de novo?</span>
                         </div>
 
+                        <!-- Campos -->
                         <div>
-
                             <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Como quer ser
                                 chamado?</label>
                             <input type="text" id="name" name="name"
                                 class="w-full input-field rounded-xl px-4 py-3 text-white placeholder-gray-500"
-                                placeholder="Seu nome ou apelido" aria-describedby="name-help">
+                                placeholder="Seu nome ou apelido">
                         </div>
 
                         <div>
@@ -474,12 +760,9 @@
                                 </div>
                                 <input type="tel" id="phone" name="phone" required
                                     class="w-full input-field rounded-xl pl-12 pr-4 py-3 text-white placeholder-gray-500 phone-input"
-                                    placeholder="(00) 00000-0000" maxlength="15" aria-required="true"
-                                    aria-describedby="phone-help">
+                                    placeholder="(00) 00000-0000" maxlength="15">
                             </div>
-                            <p id="phone-help" class="text-xs text-gray-400 mt-1">Vou usar só pra te adicionar na nossa
-                                comunidade
-                            </p>
+                            <p class="text-xs text-gray-400 mt-1">Vou usar só pra te adicionar na nossa comunidade</p>
                         </div>
 
                         <div>
@@ -487,22 +770,21 @@
                                 (opcional)</label>
                             <input type="email" id="email" name="email"
                                 class="w-full input-field rounded-xl px-4 py-3 text-white placeholder-gray-500"
-                                placeholder="seu@email.com" aria-describedby="email-help">
-                            <p id="email-help" class="text-xs text-gray-400 mt-1">Para receber atualizações futuras</p>
+                                placeholder="seu@email.com">
+                            <p class="text-xs text-gray-400 mt-1">Para receber atualizações futuras</p>
                         </div>
 
                         <div class="flex items-start p-3 rounded-xl bg-purple-900/10 border border-purple-800/20">
                             <input type="checkbox" id="privacy" name="privacy" required
-                                class="w-4 h-4 rounded bg-gray-800 border-purple-500 text-purple-500 focus:ring-purple-500 mr-3 mt-1"
-                                aria-required="true">
+                                class="w-4 h-4 rounded bg-gray-800 border-purple-500 text-purple-500 focus:ring-purple-500 mr-3 mt-1">
                             <label for="privacy" class="text-xs text-gray-300 leading-relaxed">
-                                Concordo em receber o vault e receber novidades e dicas de produtividade
+                                Concordo em receber o vault e novidades de produtividade
                             </label>
                         </div>
 
+                        <!-- Botão -->
                         <button type="submit" id="submit-btn"
-                            class="btn-primary text-white font-semibold py-4 px-6 rounded-xl w-full flex items-center justify-center relative focus:outline-none"
-                            aria-live="polite">
+                            class="btn-primary text-white font-semibold py-4 px-6 rounded-xl w-full flex items-center justify-center relative focus:outline-none">
                             <i data-feather="message-circle" class="mr-2" aria-hidden="true"></i>
                             <span id="btn-text">Enviar e Baixar Obsidian Starter Template</span>
                             <div id="btn-loading" class="hidden ml-2" aria-hidden="true">
@@ -523,15 +805,15 @@
     <div class="section-divider my-4"></div>
 
     <!-- Galeria -->
-    <section id="gallery" class="py-24 px-6 md:px-12 bg-gradient-to-b from-darker to-dark">
-        <div class="container mx-auto">
+    <section id="gallery" class="section-padding px-6 md:px-12 bg-gradient-to-b from-darker to-dark">
+        <div class="container-max-width">
             <div class="text-center mb-20 fade-in">
-                <h2 class="text-4xl md:text-5xl font-normal mb-6">
+                <h2 class="heading-secondary">
                     <span class="gradient-text">Showcase</span>
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="gallery-grid">
                 <!-- Gallery Items -->
                 <div class="gallery-item rounded-2xl overflow-hidden glass-card group" data-image="assets/pkm-+.png"
                     role="button" tabindex="0" aria-label="Expandir imagem do Dashboard Principal">
@@ -587,15 +869,15 @@
     <div class="section-divider my-4"></div>
 
     <!-- Features Section -->
-    <section id="features" class="py-24 px-6 md:px-12 bg-gradient-to-b from-dark to-darker">
-        <div class="container mx-auto">
+    <section id="features" class="section-padding px-6 md:px-12 bg-gradient-to-b from-dark to-darker">
+        <div class="container-max-width">
             <div class="text-center mb-20 fade-in">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                <h2 class="heading-secondary">
                     <span class="gradient-text">Features e Implementações.</span>
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="features-grid">
                 <!-- Feature Cards -->
                 <div class="glass-card p-8 rounded-2xl card-hover group">
                     <div
@@ -615,8 +897,6 @@
                             target="_blank" rel="noopener noreferrer"
                             class="text-blue-400 underline hover:text-blue-300">PARA</a> method.
                     </p>
-
-
                 </div>
                 <div class="glass-card p-8 rounded-2xl card-hover group">
                     <div
@@ -676,8 +956,6 @@
                         Modelos elaborados de Snippets para notas semanais e mensais.
                     </p>
                 </div>
-
-
             </div>
 
             <!-- Botão para subir ao formulário -->
@@ -692,9 +970,9 @@
     </section>
 
     <!-- Success Section -->
-    <section id="success-section" class="py-24 px-6 md:px-12 bg-gradient-to-b from-dark to-darker"
+    <section id="success-section" class="section-padding px-6 md:px-12 bg-gradient-to-b from-dark to-darker"
         style="display: none;">
-        <div class="container mx-auto max-w-6xl">
+        <div class="container-max-width">
             <!-- Mensagem de Agradecimento Principal -->
             <div class="thank-you-message fade-in">
                 <div class="thank-you-icon">
@@ -719,17 +997,14 @@
                         <i data-feather="message-circle" class="mr-3 text-xl" aria-hidden="true"></i>
                         ENTRAR NO GRUPO DO WHATSAPP
                     </a>
-
                 </div>
             </div>
-
-        </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-darker py-16 px-6 md:px-12 border-t border-purple-900/20">
-        <div class="container mx-auto">
+        <div class="container-max-width">
             <div class="flex flex-col items-center space-y-8">
 
                 <div class="flex space-x-4">
@@ -752,7 +1027,6 @@
                         <i data-feather="youtube"></i>
                     </a>
                 </div>
-
 
                 <p class="text-gray-500 text-sm">
                     &copy; 2025. Todos os direitos reservados.
