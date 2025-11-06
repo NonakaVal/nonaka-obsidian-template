@@ -80,7 +80,7 @@
     <section class="logo-section bg-gradient-to-b from-dark via-darker to-dark py-10">
         <img src="assets/between-notes-dark (1).svg" alt="Logo Between Notes"
             class="mx-auto w-80 md:w-[46rem] drop-shadow-2xl transition-transform duration-500 hover:scale-105">
-        
+
         <!-- Imagem da Homepage da Vault -->
         <div class="mt-12 mx-auto max-w-4xl px-4">
             <div class="rounded-2xl overflow-hidden shadow-2xl border border-purple-800/30">
@@ -126,6 +126,7 @@
                         <p class="text-gray-300 mt-4 text-left font-normal">
                             Seu formulário para download está logo abaixo 👇 ou ao lado 👉
                         </p>
+
 
                         <p class="text-gray-400 mt-6 text-left text-sm">
                             Se chegou aqui de outra maneira, veja o vídeo abaixo:
@@ -180,21 +181,22 @@
                             </div>
                             <p class="text-xs text-gray-400 mt-1">Vou usar só pra te adicionar na nossa comunidade</p>
                         </div>
-
+<p class="text-sm text-gray-300 mt-4 text-left font-normal">
+    
+    Comunidade voltada ao estudo e aplicação de sistemas PKM com Obsidian, ACE, ARC, Zettelkasten, entre outros.
+</p>
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Como quer ser
-                                chamado? (opcional)</label>
+                            
                             <input type="text" id="name" name="name"
                                 class="w-full input-field rounded-xl px-4 py-3 text-white placeholder-gray-500"
-                                placeholder="Seu nome ou apelido">
+                                placeholder="(Opicional) Seu nome ou apelido">
                         </div>
 
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Seu Email
-                                (opcional)</label>
+                            
                             <input type="email" id="email" name="email"
                                 class="w-full input-field rounded-xl px-4 py-3 text-white placeholder-gray-500"
-                                placeholder="seu@email.com">
+                                placeholder="(Opicional) seu@email.com">
                             <p class="text-xs text-gray-400 mt-1">Para receber atualizações futuras</p>
                         </div>
 
@@ -210,14 +212,14 @@
                         <button type="submit" id="submit-btn"
                             class="btn-primary text-white font-semibold py-4 px-6 rounded-xl w-full flex items-center justify-center relative focus:outline-none">
                             <i data-feather="download" class="mr-2" aria-hidden="true"></i>
-                            <span id="btn-text">Baixar Template</span>
+                            <span id="btn-text">Baixar e Acessar Grupo</span>
 
                             <div id="btn-loading" class="hidden ml-2" aria-hidden="true">
                                 <div class="loading-spinner rounded-full border-2 border-white border-t-transparent">
                                 </div>
                             </div>
                         </button>
-
+             
                         <p class="text-xs text-gray-500 text-center">
                             Seu número fica só comigo. Não faço spam nem compartilho com ninguém.
                         </p>
@@ -490,7 +492,7 @@
 
             // Funcionalidade para ampliar a imagem da homepage da vault
             if (vaultHomepage) {
-                vaultHomepage.addEventListener('click', function() {
+                vaultHomepage.addEventListener('click', function () {
                     const imageSrc = this.getAttribute('src');
                     openModal(imageSrc);
                 });
