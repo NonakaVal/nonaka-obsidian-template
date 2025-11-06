@@ -391,8 +391,8 @@ body.light-mode {
 
 /* Profile pic pequena centralizada */
 .profile-pic {
-    width: 30px;
-    height: 30px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid var(--primary);

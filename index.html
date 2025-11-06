@@ -78,16 +78,29 @@
 
     <!-- Logo Section -->
     <section class="logo-section bg-gradient-to-b from-dark via-darker to-dark py-10">
-        <img src="assets/between-notes-dark-2.svg" alt="Logo Between Notes"
-            class="mx-auto w-80 md:w-[41rem] drop-shadow-2xl transition-transform duration-500 hover:scale-105">
+        <img src="assets/between-notes-dark (1).svg" alt="Logo Between Notes"
+            class="mx-auto w-80 md:w-[46rem] drop-shadow-2xl transition-transform duration-500 hover:scale-105">
+        
+        <!-- Imagem da Homepage da Vault -->
+        <div class="mt-12 mx-auto max-w-4xl px-4">
+            <div class="rounded-2xl overflow-hidden shadow-2xl border border-purple-800/30">
+                <img src="assets/homepage-main.png" alt="Homepage da Vault Obsidian"
+                    class="w-full h-auto transition-transform duration-500 hover:scale-105 cursor-zoom-in"
+                    id="vault-homepage">
+            </div>
+            <p class="text-center text-gray-400 mt-4 text-sm">
+                Clique na imagem para ampliar
+            </p>
+        </div>
+
         <div class="logo-text mt-6">
             <p class="text-gray-300 text-xl md:text-2xl text-center max-w-2xl mx-auto">
                 <u><strong>Conecte ideias</strong></u>, Aprenda de forma intencional e transforme suas
                 anotações em <u><strong>Conhecimento Vivo.</strong></u>
-
             </p>
         </div>
     </section>
+
     <div class="section-divider my-4"></div>
 
     <!-- Download Section -->
@@ -154,8 +167,6 @@
                         </div>
 
                         <!-- Campos -->
-
-
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Seu
                                 WhatsApp*</label>
@@ -380,18 +391,8 @@
                     </p>
                 </div>
             </div>
-
-            <!-- Botão para subir ao formulário 
-            <div class="text-center mt-16 fade-in">
-                <a href="#download"
-                    class="btn-primary text-white font-semibold py-4 px-8 rounded-xl inline-flex items-center focus:outline-none">
-                    <i data-feather="arrow-up" class="mr-2" aria-hidden="true"></i>
-                    Receber o Vault Gratuito
-                </a>
-            </div>-->
         </div>
     </section>
-
 
     <!-- Success Section -->
     <section id="success-section" class="section-padding px-6 md:px-12 bg-gradient-to-b from-dark to-darker"
@@ -431,9 +432,6 @@
             </div>
         </div>
     </section>
-
-
-
 
     <!-- Footer -->
     <footer class="bg-darker py-16 px-6 md:px-12 border-t border-purple-900/20">
@@ -488,6 +486,15 @@
             const downloadForm = document.getElementById('download-form');
             const downloadSection = document.getElementById('download');
             const successSection = document.getElementById('success-section');
+            const vaultHomepage = document.getElementById('vault-homepage');
+
+            // Funcionalidade para ampliar a imagem da homepage da vault
+            if (vaultHomepage) {
+                vaultHomepage.addEventListener('click', function() {
+                    const imageSrc = this.getAttribute('src');
+                    openModal(imageSrc);
+                });
+            }
 
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -596,15 +603,15 @@
             function triggerDownload() {
                 try {
                     const link = document.createElement('a');
-                    link.href = 'assets/Obsidian-starter-template.zip';
-                    link.download = 'Obsidian-starter-template.zip';
+                    link.href = 'assets/Vault-Between-Notes.zip';
+                    link.download = 'Vault-Between-Notes.zip';
                     link.style.display = 'none';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
                 } catch (error) {
                     console.error('Erro no download:', error);
-                    window.open('assets/Obsidian-starter-template.zip', '_blank');
+                    window.open('assets/Vault-Between-Notes.zip', '_blank');
                 }
             }
 
