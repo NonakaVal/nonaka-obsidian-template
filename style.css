@@ -405,6 +405,8 @@ body.light-mode {
     margin: 0 auto;
 }
 
+
+
 /* Melhorias de espaçamento e alinhamento */
 .section-padding {
     padding-top: 6rem;
@@ -582,4 +584,10 @@ body.light-mode {
     .logo-text {
         padding: 0 1rem;
     }
+}
+
+.center-print {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
